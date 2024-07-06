@@ -1,4 +1,8 @@
-const importObj = {}
+const importObj = { 
+    Math: {
+        random: () => Math.random(),
+    }
+};
 
 const data = require("fs").readFileSync("./wasi.wasm");
 
@@ -6,11 +10,8 @@ WebAssembly.instantiate(data, importObj).then( r => {
 
     const { instance } =  r;
 
-    let sum = 0;
-    for (let i = 0; i < 100000; i++){
-        sum += instance.exports.add(100, 99);
-    }
-    console.log(sum);
+    console.log(instance.exports.add(100, 99));
+    
 
 }).catch(console.log);
 
